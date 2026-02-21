@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Registration Form</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        .container {
+            width: 350px;
+            margin: 50px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px gray;
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+        }
+
+        .gender {
+            width: auto;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: darkblue;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+    <h2>Student Registration</h2>
+
+    <form>
+
+        <!-- Name -->
+        <label>Full Name:</label>
+        <input type="text" placeholder="Enter your name" required>
+
+        <!-- Email -->
+        <label>Email:</label>
+        <input type="email" placeholder="Enter your email" required>
+
+        <!-- Password -->
+        <label>Password:</label>
+        <input type="password" placeholder="Enter password" required>
+
+        <!-- Gender -->
+        <label>Gender:</label><br>
+        <input type="radio" name="gender" class="gender"> Male
+        <input type="radio" name="gender" class="gender"> Female
+        <br><br>
+
+        <!-- Course -->
+        <label>Course:</label>
+        <select>
+            <option>Web Development</option>
+            <option>Graphic Designing</option>
+            <option>Digital Marketing</option>
+        </select>
+
+        <!-- Submit -->
+        <button type="submit">Register</button>
+
+    </form>
+</div>
+
+</body>
+</html>
