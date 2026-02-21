@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>Login</title>
+        <style>
+            :root{--bg:#f7f9fc;--card:#ffffff;--accent:#2563eb;--muted:#6b7280}
+            *{box-sizing:border-box}
+            body{font-family:Segoe UI, Roboto, Arial, sans-serif;background:var(--bg);margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center}
+            .card{background:var(--card);padding:28px;border-radius:10px;box-shadow:0 6px 24px rgba(16,24,40,.08);width:100%;max-width:420px}
+            h2{margin:0 0 18px;font-size:20px;color:#0f172a}
+            .field{margin-bottom:12px}
+            label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+            input[type="email"],input[type="password"]{width:100%;padding:10px 12px;border:1px solid #e6edf3;border-radius:6px;font-size:14px}
+            .row{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px}
+            .actions{display:flex;gap:8px;align-items:center}
+            button{background:var(--accent);color:#fff;padding:10px 14px;border:0;border-radius:8px;cursor:pointer;font-weight:600}
+            button[disabled]{opacity:.6;cursor:not-allowed}
+            .error{color:#b91c1c;font-size:13px;margin-top:6px;min-height:18px}
+            .muted{color:var(--muted);font-size:13px}
+            .message{margin-top:12px;font-size:14px}
+            .success{color:green}
+            .helper{font-size:12px;color:var(--muted)}
+        </style>
+    </head>
+    <body>
+        <main class="card" role="main">
+            <form id="loginForm" novalidate>
+                <h2>Sign in to your account</h2>
+
+                <div class="field">
+                    <label for="email">Email</label>
+                    <input id="email" name="email" type="email" placeholder="you@example.com" required />
+                    <div class="error" id="emailError" aria-live="polite"></div>
+                </div>
+
+                <div class="field">
+                    <label for="password">Password</label>
+                    <input id="password" name="password" type="password" placeholder="Enter your password" minlength="6" required />
+                    <div class="error" id="passwordError" aria-live="polite"></div>
+                </div>
+
+                <div class="row">
+                    <label class="helper"><input id="showPwd" type="checkbox"> Show password</label>
+                    <div class="muted">Minimum 6 characters</div>
+                </div>
+
+                <div class="actions">
+                    <button id="submitBtn" type="submit">Sign In</button>
+                </div>
+
+                <div id="message" class="message" aria-live="polite"></div>
+            </form>
+        </main>
+
+        <script>
+            const form = document.getElementById('loginForm');
+            const email = document.getElementById('email');
+            const password = document.getElementById('password');
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+            const message = document.getElementById('message');
+            const submitBtn = document.getElementById('submitBtn');
+            const showPwd = document.getElementById('showPwd');
+
+            showPwd.addEventListener('change', () => {
+                password.type = showPwd.checked ? 'text' : 'password';
+            });
+
+            function validateEmail() {
+                emailError.textContent = '';
+                if (!email.value) {
+                    emailError.textContent = 'Email is required.';
+                    return false;
+                }
+                // simple email pattern
+                const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!re.test(email.value)) {
+                    emailError.textContent = 'Please enter a valid email address.';
+                    return false;
+                }
+                return true;
+            }
+
+            function validatePassword() {
+                passwordError.textContent = '';
+                if (!password.value) {
+                    passwordError.textContent = 'Password is required.';
+                    return false;
+                }
+                if (password.value.length < 6) {
+                    passwordError.textContent = 'Password must be at least 6 characters.';
+                    return false;
+                }
+                return true;
+            }
+
+            email.addEventListener('input', validateEmail);
+            password.addEventListener('input', validatePassword);
+
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                message.textContent = '';
+                const okEmail = validateEmail();
+                const okPwd = validatePassword();
+                if (!okEmail || !okPwd) return;
+
+                // Simulate submitting credentials (replace with real call)
+                submitBtn.disabled = true;
+                submitBtn.textContent = 'Signing in...';
+
+                // Fake async login for demo
+                setTimeout(() => {
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = 'Sign In';
+                    // For demo: accept any credentials. In real app, call server API.
+                    message.textContent = 'Successfully signed in.';
+                    message.className = 'message success';
+                    // Optionally store a flag locally
+                    try { localStorage.setItem('loggedInUser', email.value); } catch (err) {}
+                    form.reset();
+                }, 800);
+            });
+        </script>
+    </body>
+</html>
